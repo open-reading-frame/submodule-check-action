@@ -17,7 +17,8 @@ runs:
         packages: orf_utils
     - name: Run check_submodule_commits with input args
       shell: bash
-      run: check_submodule_commits \
+      run: |
+        check_submodule_commits \
           -s ${{ inputs.token }} \
           -o ${{ github.repository_owner }} \
           -r .
