@@ -1,0 +1,23 @@
+name: submodule-check-action
+description: Asserts submodules in the calling repository are on commits in the commit history of their default branch
+
+inputs:
+  token:
+    description: "Github token for authentication to REST API"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout calling repo
+      uses: actions/checkout@v3
+    - name: Set up Python 3.10 and install orf_utils
+      uses: open-reading-frame/setup-python-action@main
+      with:
+        packages: orf_utils
+    - name: Run check_submodule_commits with input args
+      shell: bash
+      run: check_submodule_commits \
+          -s ${{ inputs.token }} \
+          -o ${{ github.repository_owner }} \
+          -r .
